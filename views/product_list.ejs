@@ -1,0 +1,22 @@
+<%- include('layout') %>
+ 
+          <h1><%= title %></h1>
+
+          <ul>
+            <% if (product_list.length > 0) { %> <% product_list.forEach(function(product) { %>
+            <li>
+              <a href="<%= product.url %>"><%= product.name %></a>
+              (<%= product.category.name %>)
+              <span><%= product.price %></span>
+              <span><%= product.numberInStock %></span>
+              
+            </li>
+            <% }); %> <% } else { %>
+            <li>There are no products.</li>
+            <% } %>
+          </ul>
+      </div>
+     </div>
+    </div>
+  </body>
+</html>

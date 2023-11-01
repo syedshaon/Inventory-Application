@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Management</title>
+</head>
+<body>
+  <nav>
+    <a href="/products">Products</a>
+    <a href="/categories">Categories</a>
+  </nav>
+
+  <h1>All Categories</h1>
+
+  <ul>
+    <% for (const category of categories) { %>
+      <li>
+        <a href="/categories/<%= category._id %>">
+          <%= category.name %>
+        </a>
+      </li>
+    <% } %>
+  </ul>
+
+  <% if (category) { %>
+    <h1>Products in Category: <%= category.name %></h1>
+
+    <ul>
+      <% for (const product of category.products) { %>
+        <li>
+          <a href="/products/<%= product._id %>">
+            <%= product.name %>
+          </a>
+        </li>
+      <% } %>
+    </ul>
+  <% } %>
+</body>
+</html>
