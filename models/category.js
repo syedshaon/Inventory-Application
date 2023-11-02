@@ -15,9 +15,11 @@ const CategorySchema = new Schema({
     type: String,
     virtual: true,
     get() {
-      return `/category/${this.name}`;
+      return `/category/${this._id}`;
     },
   },
 });
+
+ 
 
 module.exports = mongoose.model('Category', CategorySchema);

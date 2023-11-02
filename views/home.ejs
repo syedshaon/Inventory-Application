@@ -1,0 +1,23 @@
+<%- include('layout') %>
+ 
+          <h1><%= title %></h1>
+
+ 
+
+           
+  <ul>
+    <% for (const category of categoriesWithProducts) { %>
+      <li>
+        <h2>Category: <%= category.name %></h2>
+        <ul>
+          <% for (const product of category.products) { %>
+            <li> <%= product.name %> , Price: <span><%= product.price %></span>
+              , Stock: <span><%= product.numberInStock %></span> </li>
+          <% } %>
+        </ul>
+      </li>
+    <% } %>
+  </ul>
+ 
+
+<%- include('footer') %>

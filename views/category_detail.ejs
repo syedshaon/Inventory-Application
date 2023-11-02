@@ -1,0 +1,25 @@
+<%- include('layout') %>
+ 
+          <h1><%= title %></h1>
+
+         
+          <p><%= category.name %> </p>
+        
+          <p> <%= category.description %></p>
+        
+
+   <hr>
+        <p>
+          <a href=<%= category.url+'/update' %>>Edit this Category</a>
+        </p>
+    
+      <hr>
+        <p>
+          <a href=<%= category.url+'/delete' %>>Delete this Category</a>
+        </p>
+
+
+ 
+ 
+
+<%- include('footer') %>

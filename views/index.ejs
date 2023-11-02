@@ -2,24 +2,15 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
-<body>
-  <nav>
-    <a href="/products">Products</a>
-    <a href="/categories">Categories</a>
-  </nav>
+  <body>
+    <nav>
+      <a href="/products">Products</a>
+      <a href="/categories">Categories</a>
+    </nav>
 
-  <h1>All Products</h1>
-
-  <ul>
-    <% for (const product of products) { %>
-      <li>
-        <a href="/products/<%= product._id %>">
-          <%= product.name %>
-        </a>
-      </li>
-    <% } %>
-  </ul>
-</body>
+    <h1><%= title %></h1>
+    <p>.................Home epage</p>
+  </body>
 </html>

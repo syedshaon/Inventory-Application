@@ -3,10 +3,10 @@
           <h1><%= title %></h1>
 
           <ul>
-            <% if (product_list.length > 0) { %> <% product_list.forEach(function(product) { %>
+            <% if (products.length > 0) { %> <% products.forEach(function(product) { %>
             <li>
               <a href="<%= product.url %>"><%= product.name %></a>
-              (<%= product.category.name %>)
+              <span>(<%= product.category.name %>)</span>
               <span><%= product.price %></span>
               <span><%= product.numberInStock %></span>
               
@@ -15,8 +15,11 @@
             <li>There are no products.</li>
             <% } %>
           </ul>
-      </div>
-     </div>
-    </div>
-  </body>
-</html>
+
+ 
+
+
+ 
+ 
+
+<%- include('footer') %>

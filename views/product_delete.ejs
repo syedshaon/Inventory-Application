@@ -1,0 +1,20 @@
+<%- include('layout') %>
+
+  <p>Do you really want to delete this Product?</p>
+
+  <form method='POST' action=''>
+    
+     <div class="form-group">
+      <label for="answer">To delete the entry please write the name of the planet we live in in lowercase.</label>
+      <input type="text" class="form-control" id="answer" name="answer" placeholder="Enter secret code here!" required>
+    </div>
+
+    <div class='form-group'>
+      <input id='product' class='form-control' type='hidden' name='productid' required='true' value=<%= product._id %> />
+    </div>
+    <button class='btn btn-primary' type='submit'>Delete</button>
+  </form>
+
+ 
+
+<%- include('footer') %>

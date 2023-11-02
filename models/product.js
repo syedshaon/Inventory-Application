@@ -29,9 +29,17 @@ const ProductSchema = new Schema({
     type: String,
     virtual: true,
     get() {
-      return `/product/${this.name}`;
+      return `/product/${this._id}`;
     },
   },
 });
+
+
+// Virtual for Product's URL
+// ProductSchema.virtual("url").get(function () {
+//   // We don't use an arrow function as we'll need the this object
+//   return `/product/${this._id}`;
+// });
+
 
 module.exports = mongoose.model('Product', ProductSchema);

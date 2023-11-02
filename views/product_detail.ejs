@@ -1,0 +1,29 @@
+<%- include('layout') %>
+ 
+          <h1><%= title %></h1>
+
+         
+          <p><%= product.name %> </p>
+          <p>Category:<a href="<%= product.category.url %>"> <%= product.category.name %></a></p>
+          <p>Description: <%= product.description %> </p>
+          <p>Price: <%= product.price %></p>
+          <p>Stock Avaialble: <%= product.numberInStock %></p>
+        
+
+ 
+   <hr>
+        <p>
+          <a href=<%= product.url+'/update' %>>Edit this Product</a>
+        </p>
+    
+      <hr>
+        <p>
+          <a href=<%= product.url+'/delete' %>>Delete this Product</a>
+        </p>
+
+
+
+ 
+ 
+
+<%- include('footer') %>
