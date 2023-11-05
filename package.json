@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    
     "dev": "nodemon ./bin/www",
     "serve": "SET DEBUG=inventroymngt:* & npm run dev"
   },
@@ -23,3 +24,5 @@
     "morgan": "~1.9.1"
   }
 }
+
+
