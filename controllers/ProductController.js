@@ -6,33 +6,7 @@ const Category = require('../models/category');
 const asyncHandler = require("express-async-handler");
 const { check, body, validationResult } = require("express-validator");
  
-const multer = require('multer');
 
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, './uploads/');
-  },
-  filename: function(req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname);
-  }
-});
-
-const fileFilter = (req, file, cb) => {
-  // reject a file
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 5
-  },
-  fileFilter: fileFilter
-});
 
 
 const ProductController = {
@@ -129,7 +103,7 @@ product_update_get : asyncHandler(async (req, res, next) => {
   // Get product_ and all genres for form.
  
 
-  const product = await Product.findById(req.params.id);
+  const product = await Product.findById(req.params.id).populate("category").exec();
   const categories = await Category.find();
 
   if (product === null) {
@@ -150,8 +124,10 @@ product_update_get : asyncHandler(async (req, res, next) => {
 
 
   product_update_post: async (req, res) => {
-    
-         const product = new Product({
+    if(!req.file){
+       res.send("Wrong file type selected. Product update failed.")
+    }else{
+          const product = new Product({
         name : req.body.name,
         description: req.body.description,
         category : req.body.category,
@@ -165,6 +141,8 @@ product_update_get : asyncHandler(async (req, res, next) => {
      const updatedProduct = await Product.findByIdAndUpdate(req.params.id, product, {});
     // Redirect to Product detail page.
     res.redirect(updatedProduct.url);
+    }
+     
   },
 
     // Display category delete form on GET.
