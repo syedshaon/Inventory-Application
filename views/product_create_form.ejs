@@ -3,7 +3,7 @@
           <h1><%= title %></h1>
 
          
- <form action="/products/create" method="post"  >
+ <form action="/products/create" method="post"  enctype="multipart/form-data">
     <div class="form-group">
       <label for="name">Product Name</label>
       <input type="text" class="form-control" id="name" name="name" placeholder="Product Name" required>
@@ -31,6 +31,10 @@
     <div class="form-group">
       <label for="numberInStock">Number in Stock</label>
       <input type="number" class="form-control" id="numberInStock" name="numberInStock" placeholder="Number in Stock" required>
+    </div>
+    <div class="form-group">
+        <label for="productImage">Product Image <small>(.JPEG/.PNG type, less than 512KB)</small></label>
+        <input type="file" accept="image/png, image/jpeg" class="form-control-file" id="productImage" name="productImage" required>
     </div>
 
    

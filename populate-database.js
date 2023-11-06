@@ -74,7 +74,10 @@ async function productCreate(index, name, description, categoryName, price, numb
 async function createProducts() {
   console.log("Adding products");
   await Promise.all([
-  productCreate(3, 'MacBook Air', 'The latest MacBook Air from Apple.', 'Electronics', 899, 50),
+productCreate(0, 'iPhone 14', 'The latest iPhone from Apple.', 'Electronics', 999, 100),
+productCreate(1, 'Harry Potter and the Sorcerer Stone', 'The first book in the Harry Potter series.', 'Books', 10, 50),
+productCreate(2, 'MacBook Air', 'The latest MacBook Air from Apple.', 'Electronics', 1000, 50),
+  productCreate(3, 'T-shirt', 'A simple white T-shirt.', 'Clothing', 20, 25),
 productCreate(4, 'iPad Pro', 'The latest iPad Pro from Apple.', 'Electronics', 799, 25),
 productCreate(5, 'AirPods Pro', 'The latest AirPods Pro from Apple.', 'Electronics', 199, 100),
 

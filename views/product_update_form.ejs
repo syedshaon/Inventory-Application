@@ -1,9 +1,51 @@
+ 
+
+    <% var mainURL = product.productImage; %>  
+        <script>
+          // xml blob res
+          function getImgURL(url, callback){
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+                callback(xhr.response);
+            };
+            xhr.open('GET', url);
+            xhr.responseType = 'blob';
+             xhr.send();
+          }
+
+           var url = "<%= mainURL  %>";  
+           getImgURL(url, (imgBlob)=>{
+            // Load img blob to input
+            // let fileName = 'hasFilename.jpg' // should .replace(/[/\\?%*:|"<>]/g, '-') for remove special char like / \
+           
+            const string = url;
+            const regex =  /^(.*?)~/;
+            const newImagePath = string.replace(regex, '');
+            console.log(newImagePath);
+             let fileName = newImagePath;
+
+
+            let file = new File([imgBlob], fileName,{type:"image/jpeg", lastModified:new Date().getTime()}, 'utf-8');
+            let container = new DataTransfer(); 
+            container.items.add(file);
+            document.querySelector('#productImage').files = container.files;
+            // document.querySelector('#status').files = container.files;
+            
+          })
+
+
+
+        </script>
+
+
+
+
 <%- include('layout') %>
  
           <h1><%= title %></h1>
 
          
- <form action="" method="post"  >
+ <form action="" method="post" enctype="multipart/form-data">
     <div class="form-group">
       <label for="name">Product Name</label>
       <input type="text" class="form-control" id="name" name="name"  value="<%= product.name  %>" required>
@@ -33,12 +75,15 @@
       <input type="number" class="form-control" id="numberInStock" name="numberInStock"  value="<%= product.numberInStock  %>" required>
     </div>
 
+    <div class="form-group">
+         <label for="productImage">Product Image <small>(.JPEG/.PNG type, less than 512KB)</small></label>
+        <input type="file" accept="image/png, image/jpeg" class="form-control-file" id="productImage" name="productImage"    required>
+    </div>
    
 
     <button type="submit" class="btn btn-primary">Update Product</button>
   </form>
+ 
 
- 
- 
 
 <%- include('footer') %>

@@ -13,6 +13,53 @@
 
 var express = require("express");
 var router = express.Router();
+const path = require('path');
+
+
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    // cb(null, __dirname);
+    // cb(null, path.join(__dirname, '/uploads/'));
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb) {
+    // cb(null, new Date().toISOString() + file.originalname);
+    cb(null, Date.now()+"~"+ file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 512
+  },
+  fileFilter: fileFilter,
+  onError: (err, req, res, next) => {
+    // Handle the error here.
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      // The file is too large.
+      res.status(400).send('The file is too large.');
+    } else if (err.code === 'LIMIT_UNEXPECTED_FILE') {
+      // The file type is not supported.
+      res.status(400).send('The file type is not supported.');
+    } else {
+      // An unknown error occurred.
+      res.status(500).send('An unknown error occurred.');
+    }
+  }
+});
+
 
 // Require controller modules.
 const product_controller = require("../controllers/ProductController");
@@ -33,7 +80,7 @@ router.get("/product/:id", product_controller.productDetails);
 router.get("/products/create", product_controller.product_create_get);
 
 // POST request for creating product.
- router.post("/products/create", product_controller.product_create_post);
+ router.post("/products/create", upload.single('productImage'), product_controller.product_create_post);
 
 
  // GET request to delete product.
@@ -46,7 +93,7 @@ router.post("/product/:id/delete", product_controller.product_delete_post);
 // GET request to update product.
 router.get("/product/:id/update", product_controller.product_update_get);
 // POST request to update product.
-router.post("/product/:id/update", product_controller.product_update_post);
+router.post("/product/:id/update", upload.single('productImage'), product_controller.product_update_post);
 
  
  

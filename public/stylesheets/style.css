@@ -6,3 +6,7 @@ body {
 a {
   color: #00B7FF;
 }
+.small, small{
+  font-size: 70% !important;
+  color: rgb(247, 13, 13);
+}

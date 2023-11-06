@@ -8,6 +8,8 @@ var logger = require("morgan");
 const compression = require("compression");
 const helmet = require("helmet");
 
+ 
+
 const indexRouter = require("./routes/index");
 const productsRouter = require("./routes/allproduct");
 
@@ -25,6 +27,10 @@ mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connecion error: "));
 
+  app.use('/uploads', express.static('uploads'));
+ 
+// app.use(express.static(__dirname));
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -38,6 +44,8 @@ app.use(express.static(path.join(__dirname, "public")));
 // Mount the router on the root path of your Express app.
 app.use("/", indexRouter);
 app.use("/allproduct", productsRouter);
+
+ 
 
 // app.get("/", (req, res, next) => {
 //   res.render("index", { title: "Express" });

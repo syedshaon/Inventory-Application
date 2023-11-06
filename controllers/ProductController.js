@@ -1,10 +1,39 @@
 // ProductController.js
 
 const Product = require("../models/product");
+ 
 const Category = require('../models/category');
 const asyncHandler = require("express-async-handler");
 const { check, body, validationResult } = require("express-validator");
  
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb) {
+    cb(null, new Date().toISOString() + file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
+
 
 const ProductController = {
   index: async (req, res) => {
@@ -52,18 +81,25 @@ const ProductController = {
   //    res.redirect("/products");
   // },
   product_create_post : [
+    
   // Validate the form data.
   check('name', 'Product name is required').notEmpty(),
   check('description', 'Product description is required').notEmpty(),
   check('category', 'Product category is required').notEmpty(),
   check('price', 'Product price is required').notEmpty(),
   check('numberInStock', 'Product number in stock is required').notEmpty(),
+  //  check('productImage', 'Product image is required').notEmpty(),
 
   // Process the request after validation.
   async (req, res) => {
+  
     const errors = validationResult(req);
 
+    // Get the uploaded image file.
+  // const productImage = req.body.file;
+
     if (!errors.isEmpty()) {
+        console.log(errors);
       // The validation failed. Render the form again with the validation errors.
       res.render('error', {
         error: errors.array(),
@@ -77,6 +113,7 @@ const ProductController = {
         category: req.body.category,
         price: req.body.price,
         numberInStock: req.body.numberInStock,
+        productImage:  req.file.path,
       });
 
       await product.save();
@@ -113,13 +150,14 @@ product_update_get : asyncHandler(async (req, res, next) => {
 
 
   product_update_post: async (req, res) => {
-
+    
          const product = new Product({
         name : req.body.name,
         description: req.body.description,
         category : req.body.category,
         price : req.body.price,
         numberInStock : req.body.numberInStock,
+        productImage: req.file.path,
         _id: req.params.id, // This is required, or a new ID will be assigned!
       });
 

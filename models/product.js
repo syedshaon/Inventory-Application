@@ -24,6 +24,10 @@ const ProductSchema = new Schema({
     type: Number,
     required: true,
   },
+    productImage: {
+       type: String,
+        required: true
+   },
   // Make the url field virtual
   url: {
     type: String,
